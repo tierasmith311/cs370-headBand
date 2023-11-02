@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	     <script src="https://code.jquery.com/jquery-3.6.0.js" 
+		     integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+
+	<script>
+		function play_start(){
+			$.post("/open_api/play_movie", { "data":"somedata", "any":"data"},
+				function(data, textStatus) {
+					//this gets called when browser receives response from server
+					//if we wanted to create an on_stop, we just have to create a new file call stop_movie and call the file
+					console.log(data);
+				}, "json").fail( function(response) {
+					//this gets called if the server throws an error
+					console.log("error");
+				console.log(response);});
+		}
+		function signUp(){
+			const username = $("#username").val();
+   			const password = $("#password").val();
+    		const email = $("#email").val();
+
+    		$.post("/open_api/signUp", { username, password, email }, function (data, textStatus) {
+        	// Handle the response from the server
+        	console.log(data);
+    		}, "json").fail(function (response) {
+        	// Handle errors
+        	console.log("error");
+        	console.log(response);
+    	});
+
+		function login()
+		{
+			const username = $("#username").val();
+			const password = $("#password").val();
+
+			$.post("/open_api/login", {username, password}, function(data, textStatus){
+				console.log(data);
+
+			}, "json").fail(function (response){
+				console.log("error");
+				console.log(response);
+			});
+		}
+
+		}
+	</script>
+
+
+	<iframe width="320" height="240" 
+		  src="https://www.youtube.com/embed/NRs8t9sD2GY" title="minecraft banger" frameborder = "0" allowfullscreen></iframe>
+	
+
+	<button id="showInputButton">Sign Up!</button>
+<div id="inputContainer" style="display: none;">
+    <form method = "POST">
+        <label for="username">username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username">
+        
+		<label for="password">password:</label>
+        <input type="text" id="password" name="password" placeholder="Enter your password">
+        
+		<label for="email">email:</label>
+        <input type="text" id="email" name="email" placeholder="Enter your email">
+        <button id = "Submit">Submit</button> 
+    </form>
+</div>
+
+
+	<script>
+		video.addEventListener("play", (event) => {
+			play_start();//executing this function
+		});
+		const showInputButton = document.getElementById("showInputButton");
+    	const inputContainer = document.getElementById("inputContainer");
+	showInputButton.addEventListener("click", function() {
+		signUp();
+        inputContainer.style.display = "block";
+});
+
+const submitButton = document.getElementById("Submit");
+submitButton.addEventListener("click", function (event) {
+    //event.preventDefault(); // Prevent the default form submission behavior
+    signUp();
+});
+
+
+	</script>
+
+    </body>
+</html>
+
