@@ -45,7 +45,7 @@ def init_new_env():
 #So.. we redirect to the endpoint we want to load the base page
 @app.route('/') #endpoint
 def index():
-    return redirect('/static/index.html')
+    return redirect('/static/homePage.html')
 
 @app.route("/secure_api/<proc_name>",methods=['GET', 'POST'])
 @token_required

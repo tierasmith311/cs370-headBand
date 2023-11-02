@@ -33,9 +33,10 @@ def handle_request():
         else:
             cursor.execute('INSERT INTO accounts VALUES (NULL, ?, ?, ?)', (username, salted, email,))
             conn.commit()
+            print("you have successfully registered")
             msg = 'You have successfully registered !'
-
+            return redirect('/static/homePage.html', code = 302)
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
-    return redirect('/static/index.html')
+    return redirect('/static/homePage.html')
     

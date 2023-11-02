@@ -1,0 +1,22 @@
+body {
+    background-color: orange;
+  
+  }
+  
+  button {
+    background-color: rgb(72, 72, 210);
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    width: 100px;
+    height: 50px;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+    color: white;
+  }

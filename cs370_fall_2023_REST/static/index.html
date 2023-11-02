@@ -31,7 +31,7 @@
         	console.log("error");
         	console.log(response);
     	});
-
+		}
 		function login()
 		{
 			const username = $("#username").val();
@@ -46,16 +46,16 @@
 			});
 		}
 
-		}
+		
 	</script>
 
-
+	<!---
 	<iframe width="320" height="240" 
 		  src="https://www.youtube.com/embed/NRs8t9sD2GY" title="minecraft banger" frameborder = "0" allowfullscreen></iframe>
-	
+	--->
 
 	<button id="showInputButton">Sign Up!</button>
-<div id="inputContainer" style="display: none;">
+	<div id="inputContainer" style="display: none;">
     <form method = "POST">
         <label for="username">username:</label>
         <input type="text" id="username" name="username" placeholder="Enter your username">
@@ -77,11 +77,11 @@
 		const showInputButton = document.getElementById("showInputButton");
     	const inputContainer = document.getElementById("inputContainer");
 	showInputButton.addEventListener("click", function() {
-		signUp();
         inputContainer.style.display = "block";
 });
 
 const submitButton = document.getElementById("Submit");
+
 submitButton.addEventListener("click", function (event) {
     //event.preventDefault(); // Prevent the default form submission behavior
     signUp();
