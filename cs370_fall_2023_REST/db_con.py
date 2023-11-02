@@ -40,6 +40,3 @@ if __name__ == "__main__":
     cur.execute("create table music ( song_name varchar(255), rating int);")
     db.commit()
 
-
-
-

@@ -2,23 +2,33 @@ from flask import request, g, render_template, url_for, redirect
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from tools.token_tools import create_token
 import sqlite3
+import bcrypt
 from tools.logging import logger
 from werkzeug.security import generate_password_hash, check_password_hash
 def handle_request():
-    print("you have successfully logged in")
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        salted = bcrypt.hashpw( bytes(password,  'utf-8' ) , bcrypt.gensalt(10))
+        print(salted)
         connection = sqlite3.connect('UserAccounts.db')
         cursor = connection.cursor()
-        cursor.execute('SELECT * FROM user WHERE username=?', (username,))
-        user = cursor.fetchone()
-        connection.close()
-        if user and check_password_hash(user[2], password):
-            print("you have successfully logged in")
+        try:
+            cursor.execute('SELECT * FROM accounts WHERE username = ?', (username,))
+            user = cursor.fetchone()
+        except sqlite3.Error as e:
+            print("Error executing SQL query:", e)
+            user = None
+        finally:
+            connection.close()
+        if user:
+            if bcrypt.checkpw(password.encode('utf-8'), user[2]):
+                print("Login successful")
+            else:
+                print("Password is incorrect")
         else:
             print("user doesnt exist")
-    return render_template('login.html')
+    return redirect('/static/homePage.html')
     #logger.debug("Login Handle Request")
     #use data here to auth the user
 
