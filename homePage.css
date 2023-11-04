@@ -1,0 +1,118 @@
+/*body::before {
+  content: '';
+  display: block;
+  height: 100px;
+
+  background-color: white;
+
+  width: 100%;
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+*/
+img {
+  position: relative;
+  z-index: 2;
+  /* Set a lower z-index than the pseudo-element */
+}
+
+body {
+  background-color: orange;
+
+}
+
+.button-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-top: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+button {
+  background-color: rgb(72, 72, 210);
+  margin-right: 10px;
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  height: 50px;
+  top: 0;
+  right: 0;
+  font-size: 20px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 3;
+  transition: background-color 0.5s ease;
+
+}
+
+
+button:hover {
+  opacity: 0.8;
+  color: white;
+  background-color: rgb(128, 20, 222);
+}
+
+.previous-lesson {
+  cursor: pointer;
+  float: left;
+  color: white;
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  background-color: purple;
+}
+
+.inputContainer {
+
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  width: 400px;
+  height: 400px;
+
+}
+
+inputContainer input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.previous-lesson:hover {
+  opacity: 0.8;
+}
+
+
+.signup {
+  background-color: aqua;
+  width: 300px;
+  height: 300px;
+
+
+}
+
+.new-topic {
+  float: right;
+  cursor: pointer;
+  color: white;
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  background-color: purple;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>getting started</title>
+  <link rel="stylesheet" content="width=device-width" href="gettingstarted.css">
+</head>
+<body>
+ 
+  <div class="container" >
+    <div class="title">Welcome !</div>
+    <form method="POST">
+        <div class="about-user">
+            <div class="input-box">
+                <span class="details">How old are you?</span>
+                <input type="text" id="age" placeholder="Enter your age" required>
+            </div>
+            <div class="input-box">
+                <span class="details">What topics are you going to study?</span>
+                <input type="text" id="topics" placeholder="Enter topics you wish to study" required>
+            </div>
+            <div class="input-box">
+                <span class="details">What are your goals?</span>
+                <input type="text" id="goals" placeholder="Enter your goals" required>
+            </div>
+            <div class="input-box">
+                <span class="details">Do you have any hobbies?</span>
+                <input type="text" id="hobbies" placeholder="Enter your hobbies" required>
+            </div>
+        </div>
+    </form>
+    <a href="tutorial.html" class="continue-link">Continue</a>
+    <script>
+      function navigateToTutorial() {
+        window.location.href = "tutorial.html";
+      }
+    </script>
+</div>
+
+</body>
+</html>
