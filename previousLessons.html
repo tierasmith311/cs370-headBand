@@ -7,5 +7,15 @@
 </head>
 <body>
   <img src="logo.png" width="80" height="80" >
+    
+  <button id="backButton">Go Back</button>
+
+<script>
+  $(document).ready(function() {
+    $("#backButton").click(function() {
+      window.history.back();
+    });
+  });
+</script>
 </body>
 </html>
