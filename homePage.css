@@ -25,7 +25,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   height: 100vh;
-
   align-items: center;
   margin: 0;
 }
@@ -35,13 +34,11 @@ body .tabs {
   top: 90%;
   left: 50%;
   z-index: 2;
-
   transform: translateY(-50%);
 }
 
 .container {
   position: relative;
-  /* Added to establish stacking context */
   z-index: 2;
 }
 
@@ -51,7 +48,6 @@ body .tabs {
   justify-content: flex-end;
   margin-top: 10px;
   position: absolute;
-  /* Position relative to the container */
   top: 0;
   right: 0;
   z-index: 3;
