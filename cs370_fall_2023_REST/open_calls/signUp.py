@@ -1,5 +1,5 @@
 from flask import request, g, render_template, redirect, url_for, session
-from flask_json import FlaskJSON, JsonError, json_response, as_json
+from flask_json import FlaskJSON, JsonError, json_response, as_json, jsonify
 from tools.token_tools import create_token
 import sqlite3
 import db_con
@@ -33,9 +33,7 @@ def handle_request():
         else:
             cursor.execute('INSERT INTO accounts VALUES (NULL, ?, ?, ?)', (username, salted, email,))
             conn.commit()
-            print("you have successfully registered")
-            msg = 'You have successfully registered !'
-            return redirect('/static/homePage.html', code = 302)
+            return jsonify({'message' : 'new user created!'})
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
     return redirect('/static/homePage.html')

@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" 
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +13,9 @@
 <body>
   <img src="logo.png" alt="logo" width="80" height="80" >
  
-
-
+  <iframe width="320" height="240" 
+  src="https://www.youtube.com/embed/fdLa2AvRIdA" title="minecraft banger" frameborder = "0" allowfullscreen></iframe>
+  
 <div align="right">
     <form method="POST" action="/handle_request">
         <a href="loginPage.html">
@@ -20,9 +25,30 @@
   <a href="signUpPage.html">
     <button type="button" class="sign-up">Sign Up</button>
   </a>
+  <button id = "new"> new video</button>
 </div>  
+<script>
+  const newButton = document.getElementById("new");
 
- 
+function select() {
+    $.post("/open_api/selectVideo", function(data) {
+        console.log("success");
+        console.log(data);
+    }, "json").fail(function(response) {
+        console.log("error");
+        console.log(response);
+    });
+}
+
+newButton.addEventListener("click", function(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+    select();
+});
+
+
+</script>
+<iframe width="320" height="240" 
+  src="https://www.youtube.com/embed/fdLa2AvRIdA" title="minecraft banger" frameborder = "0" allowfullscreen></iframe> 
 
 </body>
 

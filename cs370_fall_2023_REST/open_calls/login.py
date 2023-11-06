@@ -1,7 +1,8 @@
-from flask import request, g, render_template, url_for, redirect
-from flask_json import FlaskJSON, JsonError, json_response, as_json
+from flask import request, g, render_template, url_for, redirect, make_response
+from flask_json import FlaskJSON, JsonError, json_response, as_json, jsonify
 from tools.token_tools import create_token
 import sqlite3
+import jwt
 import bcrypt
 from tools.logging import logger
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,6 +25,8 @@ def handle_request():
         if user:
             if bcrypt.checkpw(password.encode('utf-8'), user[2]):
                 print("Login successful")
+                token = create_token(user)
+                return jsonify(token = token)
             else:
                 print("Password is incorrect")
         else:

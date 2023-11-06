@@ -6,8 +6,17 @@ from tools.logging import logger
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def handle_request():
-    connection = sqlite3.connect("database.db")
-    cursor = connection.cursor()
-    cursor.execute()#this is where i have to use SELECT from the database
-    video = cursor.fetchone()
-    connection.close()
+    print("select video is being called")
+    conn = sqlite3.connect("tools/math_content.sql")
+
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM "Entertainment Content - Sheet1" WHERE Slime = ?', ('SomeValue',))
+
+    url = cursor.fetchone()
+    conn.close()
+    if url:
+        print("video has chosen successfully")
+        print(url[0])
+        return json_response(url[0])
+    else:
+        return json_response({"error" : "no video found"})
