@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BFF Notes</title>
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f1a93b;
+        }
+
+        .header {
+            background-color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .note-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .note {
+            width: calc(20% - 20px);
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 0 10px 30px 10px;
+            padding: 10px;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .lightblue {
+            background-color: lightblue;
+        }
+
+        .pink {
+            background-color: pink;
+        }
+
+        .add-note-form {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-note-form input[type="text"] {
+            width: 20%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .add-note-form input[type="textarea"] {
+            width: 40%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .add-note-form input[type="color"] {
+            width: 10%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .add-note-form select {
+            width: 20%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .add-note-form button {
+            width: 10%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4848ca;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-note-form button:hover {
+            background-color: #4848ca;
+        }
+
+        .go-back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px; 
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4848ca;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .go-back-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Notes with BrainFlowFriend!</h1>
+        <h3>Create a new note:</h3>
+        <form class="add-note-form" action="/add_note" method="post">
+            <!-- Input fields for adding a new note -->
+            <input type="text" name="note_title" placeholder="Title" required>
+            <textarea name="note_content" placeholder="Take a note..." required></textarea>
+            <select name="note_color">
+                <!-- Options for note color selection -->
+                <option value="yellow">Yellow</option>
+                <option value="lightblue">Blue</option>
+                <option value="pink">Pink</option>
+            </select>
+            <input type="text" name="note_category" placeholder="Category" required>
+            <button type="submit">Add</button>
+        </form>
+        <!-- Added a "Go Back" button -->
+        <a href="#" class="go-back-button" onclick="history.back()">Go Back</a>
+    </div>
+
+    <div class="note-container">
+        {% for note in notes %}
+        <!-- Display existing notes -->
+        <div class="note {{ note.color }}">
+            <strong>{{ note.title }}</strong>
+            <p>{{ note.content }}</p>
+            <p>Category: {{ note.category }}</p>
+            <!-- Form for deleting a note -->
+            <form action="/delete_or_edit_note/{{ loop.index0 }}" method="post">
+                <button type="submit" name="action" value="delete">Delete</button>
+                <button type="submit" name="action" value="edit">Edit</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
