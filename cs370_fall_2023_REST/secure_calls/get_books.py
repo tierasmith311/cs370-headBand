@@ -10,4 +10,3 @@ def handle_request():
     logger.debug(request.args) #logs information about the request's query parameters using request.args
 
     return json_response( token = create_token(  g.jwt_data ) , books = {}) 
-

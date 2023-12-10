@@ -5,6 +5,7 @@
 import sqlite3
 
 
+
 def get_db():
     #Postgres
     #return psycopg2.connect(host="localhost", dbname="authme" , user="loki", password="4prez")
@@ -22,9 +23,11 @@ def create_accounts_table(conn):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS accounts (
             id INTEGER PRIMARY KEY,
+            firstName TEXT,
+            lastName TEXT,
             username TEXT,
-            password TEXT,
-            email TEXT
+            email TEXT,
+            password TEXT
         )
     ''')
     conn.commit()

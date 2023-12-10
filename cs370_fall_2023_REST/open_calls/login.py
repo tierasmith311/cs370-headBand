@@ -10,8 +10,10 @@ def handle_request():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        token = jwt.encode({'username' : username})
         salted = bcrypt.hashpw( bytes(password,  'utf-8' ) , bcrypt.gensalt(10))
         print(salted)
+
         connection = sqlite3.connect('UserAccounts.db')
         cursor = connection.cursor()
         try:
@@ -25,12 +27,13 @@ def handle_request():
         if user:
             if bcrypt.checkpw(password.encode('utf-8'), user[2]):
                 print("Login successful")
-                token = create_token(user)
-                return jsonify(token = token)
+                token = create_token(user)  
+                return jsonify({"token" :token, "username" : username})
             else:
                 print("Password is incorrect")
         else:
             print("user doesnt exist")
+            redirect('/static/signUpPage.html')
     return redirect('/static/homePage.html')
     #logger.debug("Login Handle Request")
     #use data here to auth the user

@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="button">
-                <input type="submit" id="submitButton" value="Submit">
+                <input type="submit" id="submitButton"value="Submit">
             </div>
         </form>
     </div>
@@ -69,10 +69,7 @@
 <script>
     const showInputButton = document.getElementById("showInputButton");
     const inputContainer = document.getElementById("inputContainer");
-    //const submitButton = document.getElementsByClassName("submitButton");
-    const submitButton = document.getElementById("submitButton");
-
-
+    const submitButton = document.getElementsByClassName("submitButton");
 
     showInputButton.addEventListener("click", function() {
         inputContainer.style.display = "block";
@@ -80,17 +77,12 @@
 
     function signUp() {
         // Extract the values using vanilla JavaScript
-        // Extract the values using jQuery
-        const firstName = $("#firstname").val();
-        const lastName = $("#lastname").val();
         const username = $("#username").val();
-        const email = $("#email").val();
         const password = $("#password").val();
-
-
+        const email = $("#email").val();
 
         
-        $.post("/open_api/signUp", { firstName, lastName, username, email, password }, function (data, textStatus) {
+        $.post("/open_api/signUp", { username, password, email }, function (data, textStatus) {
             // Handle the response from the server
             console.log(data);
         }, "json").fail(function (response) {

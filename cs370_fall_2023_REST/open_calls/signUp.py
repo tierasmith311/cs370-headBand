@@ -10,7 +10,10 @@ import re
 def handle_request():
     msg = ''
     if request.method == 'POST'and 'GET' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+        firstName = request.form['firstName']
+        lastName = request.form['firstName']
         username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
         salted = bcrypt.hashpw( bytes(password,  'utf-8' ) , bcrypt.gensalt(10))
         print(salted)
@@ -31,7 +34,7 @@ def handle_request():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO accounts VALUES (NULL, ?, ?, ?)', (username, salted, email,))
+            cursor.execute('INSERT INTO accounts VALUES (NULL, ?, ?, ?, ?, ?)', (firstName, lastName, username, email, salted,))
             conn.commit()
             return jsonify({'message' : 'new user created!'})
     elif request.method == 'POST':

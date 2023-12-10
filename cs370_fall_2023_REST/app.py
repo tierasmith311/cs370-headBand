@@ -28,6 +28,23 @@ app = Flask(__name__)
 #add in flask json
 FlaskJSON(app)
 
+class User:
+    id_counter = 0  # Counter to generate unique IDs
+
+    def __init__(self, username=None, email=None, password=None, first_name=None, last_name=None):
+        self.id = User.id_counter
+        User.id_counter += 1
+
+        self.username = username
+        self.email = email
+        self.password = password
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = None
+        self.topics = None
+        self.goals = None
+        self.hobbies = None
+
 
 #g is flask for a global var storage 
 def init_new_env():
@@ -41,7 +58,7 @@ def init_new_env():
     #g.secrets = get_secrets()
     #g.sms_client = get_sms_client()
 
-#This gets executed by default by the browser if no page is specified
+#This gets executed by default y bthe browser if no page is specified
 #So.. we redirect to the endpoint we want to load the base page
 @app.route('/') #endpoint
 def index():
