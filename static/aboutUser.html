@@ -4,30 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Questionaire</title>
+  <link rel="stylesheet" content="width=device-width" href="aboutUser.css">
 </head>
 <body>
+    <img src="logo.png" alt="logo" width="80" height="80" >
+    <h4> Now it's time to pick what videos you'd like to see when you have your break!
+    </h4>
+    <br>
+
   <form method="POST", action="">
     <div class="about-user">
         <div class="input-box">
-            <span class="details">Please pick what videos interest you :</span>
+            <span class="details">Please pick what videos interest you :</span> 
+            </br>
             <input type="checkbox" name="cars" value="topic1" > Cars
                 <input type="checkbox" name="slime" value="topic2" > Slime
-                <input type="checkbox" name="english" value="topic3" > 
-                <input type="checkbox" name="spanish" value="topic4" > Spanish
+                <input type="checkbox" name="minecraft" value="topic3" > Minecraft
+                <input type="checkbox" name="origami" value="topic4" > Origami
+                <input type="checkbox" name="cooking" value="topic5" > Cooking
+                <input type="checkbox" name="painting" value="topic6" > Painting
+                <input type="checkbox" name="space" value="topic7" > Space
+                <input type="checkbox" name="garden" value="topic8" > Gardening
         </div>
+        <br>
         <div class="input-box">
-            <span class="details">Please choose?</span>
-            <input type="text" id="topic" placeholder="(eg.: English, Math, Science)" required>
+            <span class="details">Are you interested in sports?</span>
+            <input type="radio" id="yes" name="sports" value="yes" >yes
+            <input type="radio" id="yes" name="sports" value="no"> no
+           
         </div>
+        <br>
         <div class="input-box">
             <span class="details">What are your goals?</span>
             <input type="text" id="goals" placeholder="Enter your goals" required>
         </div>
-        <div class="input-box">
-            <span class="details">Do you have any hobbies?</span>
-            <input type="text" id="hobbies" placeholder="Enter your hobbies" required>
-        </div>
     </div>
+    <input type="submit" id="submitButton"value="Submit">
 </form>
 </body>
 </html>
