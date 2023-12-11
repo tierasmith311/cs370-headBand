@@ -4,17 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>new lessons</title>
-  <link rel="stylesheet" content="width=device-width" href="topicsPage.css">
+  
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>  
+  <link rel="stylesheet" content="width=device-width" href="lesson.css">
 </head>
 <body>
+
   <img src="logo.png" width="80" height="80" >
 
+  <h2>Click to choose your new lesson!</h2>
   <button id="backButton">Go Back</button>
-
+  <div id="poll-container">
+    <h2>How do you feel?</h2>
+    
+    <img src="happy.webp" alt="Happy" onclick="submitPoll('Happy')" width="80" height="80">
+    <img src="Sad-Face-Emoji.png" alt="Sad" onclick="submitPoll('Sad')" width="80" height="80">
+    
+  </div>
+  
+  <button onclick="openPoll()">click to take poll</button>
+  
+  
+  <script>
+   
+   function openPoll() {
+        document.getElementById('poll-container').style.display = 'block';
+      }
+  
+      function submitPoll(mood) {
+       
+        alert('you chose:' + mood);
+        document.getElementById('poll-container').style.display = 'none';
+      }
+  
+      function closePoll() {
+        document.getElementById('poll-container').style.display = 'none';
+      }
+  
+    $(document).ready(function() {
+      $("#backButton").click(function() {
+        window.history.back();
+      });
+    });
+  </script>
 <script>
   $(document).ready(function() {
     $("#backButton").click(function() {
