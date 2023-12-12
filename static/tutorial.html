@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" 
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tutorial</title>
+</head>
+<body>
+  <img src="logo.png" alt="logo" width="80" height="80" >
+  <h1> insert video here</h1>
+
+  <a href="topicsPage.html" class="continue-link">Let's start studying!</a>
+    <button id="new">New Video</button>
+
+    <iframe id= "videoFrame" width="320" height="240" frameborder="0" allowfullscreen></iframe>
+
+  <script>
+    function navigateToTutorial() {
+      window.location.href = "tutorial.html";
+    }
+    const newButton = document.getElementById("new");
+    const videoFrame = document.getElementById("videoFrame");
+    function select() {
+        $.post("/open_api/selectVideo", function(data) {
+            console.log("success");
+            videoFrame.src = data.embed_url;
+        }, "json").fail(function(response) {
+            console.log("error");
+            console.log(response);
+        });
+    }
+
+    newButton.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        select();
+});
+
+video.addEventListener("play", (event) => {
+			play_start();//executing this function
+		});
+		const showInputButton = document.getElementById("showInputButton");
+    	const inputContainer = document.getElementById("inputContainer");
+	showInputButton.addEventListener("click", function() {
+        inputContainer.style.display = "block";
+});
+
+video.addEventListener("ended", (event) => {
+  
+})
+  </script>
+  
+</body>
+</html>

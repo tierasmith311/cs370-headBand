@@ -11,13 +11,13 @@ from tools.logging import logger
 def on_sensor_state_changed(sensor, state):
     logger.debug('Sensor {0} is {1}'.format(sensor.Name, state))
 
-def on_brain_bit_signal_data_received(sensor, data):
-    logger.debug(data)
+def on_brain_bit_signal_data_received(sensor, data): #this function is printing the data to the console
+    logger.debug(data)#spews it out
 
-logger.debug("Create Headband Scanner")
-gl_scanner = Scanner([SensorFamily.SensorLEBrainBit])
+logger.debug("Create Headband Scanner")#print out "Create Headband Scanner"
+gl_scanner = Scanner([SensorFamily.SensorLEBrainBit])#scanner reads outputs from the headband
 gl_sensor = None
-logger.debug("Sensor Found Callback")
+logger.debug("Sensor Found Callback")#prints out "Senesor FOund Callback"
 def sensorFound(scanner, sensors):
     global gl_scanner
     global gl_sensor

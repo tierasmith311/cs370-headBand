@@ -6,7 +6,7 @@ def handle_request():
     if g.hb == None: #in python none represents a lack of a value or object
         return ["Data Flowing"]
 
-    g.hb.exec_command(SensorCommand.CommandStartSignal) #run this command to receive signal
+    g.hb.exec_command(SensorCommand.CommandStopSignal)
     return ["Data Flowing"]
 #
 #create a new file in the directory and call that file called on_stop()

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # cs370_fall_2023_REST
 poc to get you started for 370 project
 
@@ -15,3 +16,15 @@ index.html and movie.mp4
 open_calls
 play_movie.py
 
+=======
+# cs370-headBand
+B.F.F (brain flow friend)
+
+
+Group members:
+Christiansen Dimalanta,
+Peter Minsch,
+Jose Peralta,
+Tiera Smith,
+Corban Sy
+>>>>>>> friend/TieraFiles

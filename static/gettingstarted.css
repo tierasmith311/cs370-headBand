@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+  }
+  
+  
+  body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: orange
+  }
+  
+  .container {
+    max-width: 500px;
+    width: 80%;
+    background-color: white;
+    padding: 25px 30px;
+    border-radius: 5px;
+  }
+  
+  .container .title {
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+  }
+  
+  /*
+  .container form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+  }
+  */
+  form .about-user .input-box {
+    margin-bottom: 25px;
+    width: calc(100% 10px);
+    height: 70px;
+  }
+  
+  .about-user .input-box .details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  .about-user .input-box input {
+    height: 30px;
+    width: 100%;
+    outline: none;
+    border-radius: 1px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 14px;
+    border-bottom-width: 2px;
+    transition: all 0.3s;
+  }
+  
+  /* this is to have the box higihlight plum color when user clicks on it*/
+  .about-user .input-box input:focus,
+  user-details .input-box input:valid {
+    border-color: plum;
+  }
+  
+  
+  
+  .button {
+    height: 45px;
+    margin: 45px 0;
+  }
+  
+  .button {
+    height: 100%;
+    width: 50%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    border-radius: 1px;
+    background: linear-gradient(185deg, orange, blue);
+  
+  }
+  
+  .button input:hover {
+    opacity: 0.8;
+  }

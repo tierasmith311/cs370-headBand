@@ -5,6 +5,7 @@
 import sqlite3
 
 
+
 def get_db():
     #Postgres
     #return psycopg2.connect(host="localhost", dbname="authme" , user="loki", password="4prez")
@@ -17,6 +18,20 @@ def get_db_instance():
     return db, cur 
 
 
+def create_accounts_table(conn):
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS accounts (
+            id INTEGER PRIMARY KEY,
+            firstName TEXT,
+            lastName TEXT,
+            username TEXT,
+            email TEXT,
+            password TEXT
+        )
+    ''')
+    conn.commit()
+
 
 if __name__ == "__main__":
     db, cur = get_db_instance()
@@ -27,7 +42,4 @@ if __name__ == "__main__":
 
     cur.execute("create table music ( song_name varchar(255), rating int);")
     db.commit()
-
-
-
 
