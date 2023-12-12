@@ -1,50 +1,39 @@
-from flask import request, g, render_template, url_for, redirect, make_response
-from flask_json import FlaskJSON, JsonError, json_response, as_json, jsonify
-from tools.token_tools import create_token
+from flask import request, jsonify, redirect
 import sqlite3
 import jwt
 import bcrypt
+from tools.token_tools import create_token
 from tools.logging import logger
-from werkzeug.security import generate_password_hash, check_password_hash
+
 def handle_request():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        token = jwt.encode({'username' : username})
-        salted = bcrypt.hashpw( bytes(password,  'utf-8' ) , bcrypt.gensalt(10))
-        print(salted)
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        if not username or not password:
+            return jsonify({"error": "Both username and password are required"}), 400
 
         connection = sqlite3.connect('UserAccounts.db')
         cursor = connection.cursor()
+
         try:
             cursor.execute('SELECT * FROM accounts WHERE username = ?', (username,))
             user = cursor.fetchone()
+
+            if user and bcrypt.checkpw(password.encode('utf-8'), user[2]):
+                logger.info("Login successful")
+                token = create_token(user)
+                return jsonify({"token": token, "username": username})
+            else:
+                logger.warning("Incorrect username or password")
+                return jsonify({"error": "Incorrect username or password"}), 401
+
         except sqlite3.Error as e:
-            print("Error executing SQL query:", e)
-            user = None
+            logger.error("Error executing SQL query: %s", e)
+            return jsonify({"error": "Internal Server Error"}), 500
+
         finally:
             connection.close()
-        if user:
-            if bcrypt.checkpw(password.encode('utf-8'), user[2]):
-                print("Login successful")
-                token = create_token(user)  
-                return jsonify({"token" :token, "username" : username})
-            else:
-                print("Password is incorrect")
-        else:
-            print("user doesnt exist")
-            redirect('/static/signUpPage.html')
+
     return redirect('/static/homePage.html')
-    #logger.debug("Login Handle Request")
-    #use data here to auth the user
 
-    #password_from_user_form = request.form['password']
-    #user = {
-     #       "sub" : request.form['firstname'] #sub is used by pyJwt as the owner of the token
-     #      }
-    #if not user:
-    #    return json_response(status_=401, message = 'Invalid credentials', authenticated =  False )
-
-    #return json_response( token = create_token(user) , authenticated = True)
-
-#json

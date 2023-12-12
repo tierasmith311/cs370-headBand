@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,76 +5,66 @@
     integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" content="width=device-width" href="loginpage.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" content="width=device-width" href="loginpage.css">
 </head>
 <body>
     
-    
-  <img src="logo.png" width="80" height="80" >
+    <img src="logo.png" width="80" height="80" >
 
-   <!--  <div class="container">
-        <div class="title"> login up </div>
+    <button id="showInputButton">Log in</button>
+    <div id="inputContainer" style="display: none;">
         <form method="POST">
-            <div class="user-details"></div>
-                <div class="input-box">
-                    <span class="details"> Full Name</span>
-                    <input type="text" placeholder="Enter your name" required>
-                </div>
-                <div class="input-box">
-                    <span class="details"> Full Name</span>
-                    <input type="text" placeholder="Enter your name" required>
-                </div>
-            </div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            <button id="submitButton">Submit</button>
         </form>
-    </div> -->
+        <div id="error-message" style="color: red;"></div> <!-- Display error message here -->
+    </div>
 
+    <script>
+        const showInputButton = document.getElementById("showInputButton");
+        const inputContainer = document.getElementById("inputContainer");
+        const submitButton = document.getElementById("submitButton");
 
-label and input for username
-  <button id="showInputButton">log in</button>
-  <div id="inputContainer" style="display: none;">
-  <form method = "POST">
-      <label for="username">username:</label>
-      <input type="text" id="username" name="username" placeholder="Enter your username">
-      
-      <label for="password">password:</label>
-      <input type="text" id="password" name="password" placeholder="Enter your password">
-      <button id = "submitButton">Submit</button>
-  </form>
-</div>
-  <script>
-
-    const showInputButton = document.getElementById("showInputButton");
-    const inputContainer = document.getElementById("inputContainer");
-    const submitButton = document.getElementById("submitButton");
-
-    showInputButton.addEventListener("click", function() {
-        inputContainer.style.display = "block";
-    });
-
-    function login() {
-        // Extract the values using vanilla JavaScript
-        const username = $("#username").val();
-        const password = $("#password").val();
-
-        // Here you can use jQuery for AJAX if you have included the library.
-        $.post("/open_api/login", { username, password}, function (data, textStatus) {
-            // Handle the response from the server
-            console.log(data);
-        }, "json").fail(function (response) {
-            // Handle errors
-            console.log("error");
-            console.log(response);
+        showInputButton.addEventListener("click", function () {
+            inputContainer.style.display = "block";
         });
-    }
 
-    submitButton.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent the default form submission behavior
-        login();
-        window.location.href = 'gettingstarted.html'
-    });
-</script>
+        function login() {
+            const username = $("#username").val();
+            const password = $("#password").val();
+
+            $.post("/open_api/login", { username, password }, function (data, textStatus) {
+                console.log(data); // Log the response data
+                console.log(textStatus); // Log the status
+
+                if (data.token) {
+                    // If the response data contains a 'token' property
+                    window.location.href = 'gettingstarted.html'; // Redirect the user to 'gettingstarted.html'
+                }
+            }, "json").fail(function (response) {
+                console.log("error");
+                console.log(response);
+
+                if (response.status === 401) {
+                    // If the server responds with 401 (UNAUTHORIZED)
+                    $("#error-message").text("Incorrect username or password"); // Display an error message to the user
+                }
+            });
+        }
+
+        submitButton.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            login();
+        });
+
+    </script>
+  
 </body>
 </html>

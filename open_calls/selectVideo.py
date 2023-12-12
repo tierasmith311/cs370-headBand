@@ -1,13 +1,11 @@
-from flask import request, g, render_template, url_for, redirect, jsonify
-from flask_json import FlaskJSON, JsonError, json_response, as_json
-from tools.token_tools import create_token
+from flask import jsonify
+from flask_json import json_response
 import sqlite3
 import random
-from tools.logging import logger
-from werkzeug.security import generate_password_hash, check_password_hash
-from urllib.parse import urlparse, parse_qs
 import pandas as pd
-
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 
 def get_embed_url(youtube_url):
     # Parse the original YouTube URL
@@ -26,38 +24,60 @@ def get_embed_url(youtube_url):
     
     return None
 
-# Example usage:
-def select():
-    conn = sqlite3.connect("math_content.db")
-    sql_query = "SELECT * FROM your_table;"
-    df = pd.read_sql(sql_query, conn)
+def train_model(conn):
+    try:
+        query = 'SELECT * FROM UserPreferences'
+        df = pd.read_sql_query(query, conn)
+
+        # Data Preprocessing
+        X = df[['Rating', 'LikeVideoCount', 'DislikeVideoCount']]  # Add other relevant features
+        y = df['Selected']
+
+        # Split the data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        # Model Selection and Training
+        model = LogisticRegression()
+        model.fit(X_train, y_train)
+
+        # Model Evaluation
+        y_pred = model.predict(X_test)
+        accuracy = accuracy_score(y_test, y_pred)
+        print(f"Accuracy: {accuracy}")
+
+        return model
+    except Exception as e:
+        print(f"Error training model: {e}")
+        return None
     
-    conn.close()
-    
+def select_video(model, input_data):
+    # Replace this with your logic for selecting the next video based on the trained model
+    # input_data represents the features for a particular video
+    # You can use the model.predict() method to make predictions
+
+    # For demonstration, let's assume a simple logic where we predict based on a threshold
+    if model.predict([input_data[['Rating', 'LikeVideoCount', 'DislikeVideoCount']]])[0] == 1:
+        return {"message": "Video selected based on the model"}
+    else:
+        return {"message": "Video not selected based on the model"}
+
 def handle_request():
     try:
         conn = sqlite3.connect("math_content.db")
         cursor = conn.cursor()
 
-        cursor.execute('SELECT COUNT(*) FROM math_content WHERE "3rdgrade" IS NOT NULL')
-        sum_of_3rdgrade = cursor.fetchone()[0]
+        cursor.execute('SELECT * FROM UserPreferences')
+        df = pd.read_sql_query(cursor, conn)
 
-        if sum_of_3rdgrade > 0:
-            random_number = random.randint(0, sum_of_3rdgrade - 1)  
-            cursor.execute('SELECT "3rdgrade" FROM math_content;')
-            url = cursor.fetchall()
+        # Train the model
+        model = train_model(df)
 
-            if 0 <= random_number < len(url):
-                youtube_url = url[random_number][0]
-                embed_url = get_embed_url(youtube_url)
-                if embed_url:
-                    return jsonify({"embed_url": embed_url})
-            return jsonify({"error": "Invalid YouTube URL"})
+        # Select the next video based on the model
+        selected_video = select_video(model, df.iloc[0])  # Assuming df.iloc[0] is the first row for demonstration
 
-        return jsonify({"error": "No video found"})
+        return jsonify(selected_video)
     except Exception as e:
-        return jsonify({"error": "error!"})
+        return jsonify({"error": str(e)})
     finally:
         cursor.close()
         conn.close()
-

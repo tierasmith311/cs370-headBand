@@ -31,8 +31,21 @@ def create_accounts_table(conn):
         )
     ''')
     conn.commit()
-
-
+def create_user_preferences_table(conn):
+    cursor = conn.cursor()
+    cursor.execute('''
+                   CREATE TABLE IF NOT EXISTS "UserPreferences"(
+                   "UserID" TEXT,
+                   "ContentID" TEXT,
+                   "Topics" TEXT,
+                   "Rating" REAL,
+                   "LikeVideoCount" INTEGER,
+                   "DislikeVideoCount" INTEGER,
+                   "Selected" BOOLEAN,
+                   PRIMARY KEY ("UserID", "ContentID")
+                   )
+                ''')
+    conn.commit()
 if __name__ == "__main__":
     db, cur = get_db_instance()
 
